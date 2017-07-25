@@ -92,8 +92,28 @@ if (TYPO3_MODE == 'BE') {
 
 // Register Backend Modules
 if (TYPO3_MODE == 'BE') {
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', '', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_nav/');
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', 'txcaretakerOverview', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_overview/');
+    if (version_compare(TYPO3_version, '8.7', '<')) {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', '', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_nav/');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', 'txcaretakerOverview', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_overview/');
+    } else {
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+            'txcaretakerNav', '', '', '',
+            array(
+                'name' => 'txcaretakerNav',
+                'access' => 'user,group',
+                'labels' => 'LLL:EXT:caretaker/mod_nav/locallang_mod.xml'
+            )
+        );
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+            'txcaretakerNav', 'txcaretakerOverview', '', '',
+            array(
+                'name' => 'txcaretakerNav_txcaretakerOverview',
+                'access' => 'user,group',
+                'icon' => 'EXT:caretaker/mod_overview/moduleicon.svg',
+                'labels' => 'LLL:EXT:caretaker/mod_overview/locallang_mod.xml',
+            )
+        );
+    }
 
     $caretaker_modconf = null;
     if (isset($TBE_MODULES['file'])) {
