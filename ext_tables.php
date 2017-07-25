@@ -101,7 +101,8 @@ if (TYPO3_MODE == 'BE') {
             array(
                 'name' => 'txcaretakerNav',
                 'access' => 'user,group',
-                'labels' => 'LLL:EXT:caretaker/mod_nav/locallang_mod.xml'
+                'labels' => 'LLL:EXT:caretaker/mod_nav/locallang_mod.xml',
+                'routeTarget' => \Caretaker\Caretaker\Module\Navigation::class . '::mainAction',
             )
         );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
@@ -111,6 +112,7 @@ if (TYPO3_MODE == 'BE') {
                 'access' => 'user,group',
                 'icon' => 'EXT:caretaker/mod_overview/moduleicon.svg',
                 'labels' => 'LLL:EXT:caretaker/mod_overview/locallang_mod.xml',
+                'routeTarget' => \Caretaker\Caretaker\Module\Overview::class . '::mainAction',
             )
         );
     }
