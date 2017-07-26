@@ -278,7 +278,26 @@ class tx_caretaker_TestServiceBase extends \TYPO3\CMS\Core\Service\AbstractServi
                 $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Lang\LanguageService');
                 $LANG->init($language_key);
 
-                return $LANG->getLLL($locallang_key, \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file), $LANG->lang, $LANG->charSet));
+                if (version_compare(TYPO3_version, '8.0', '<')) {
+                    $localLanguage = \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(
+                        \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
+                        $LANG->lang,
+                        $LANG->charSet
+                    );
+                } else {
+                    /** @var $languageFactory \TYPO3\CMS\Core\Localization\LocalizationFactory */
+                    $languageFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LocalizationFactory::class);
+                    $localLanguage = $languageFactory->getParsedData(
+                        \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
+                        $LANG->lang,
+                        $LANG->charSet
+                    );
+                }
+
+                return $LANG->getLLL(
+                    $locallang_key,
+                    $localLanguage
+                );
 
             default:
                 return $locallang_string;

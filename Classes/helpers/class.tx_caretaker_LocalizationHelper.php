@@ -76,13 +76,24 @@ class tx_caretaker_LocalizationHelper
                         /** @var \TYPO3\CMS\Lang\LanguageService $LANG */
                         $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Lang\LanguageService');
                         $LANG->init($language_key);
-                        $result = $LANG->getLLL(
-                            $locallang_key,
-                            \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(
+                        if (version_compare(TYPO3_version, '8.0', '<')) {
+                            $localLanguage = \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(
                                 \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
                                 $LANG->lang,
                                 $LANG->charSet
-                            )
+                            );
+                        } else {
+                            /** @var $languageFactory \TYPO3\CMS\Core\Localization\LocalizationFactory */
+                            $languageFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LocalizationFactory::class);
+                            $localLanguage = $languageFactory->getParsedData(
+                                \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
+                                $LANG->lang,
+                                $LANG->charSet
+                            );
+                        }
+                        $result = $LANG->getLLL(
+                            $locallang_key,
+                            $localLanguage
                         );
                     }
                     break;
@@ -96,15 +107,24 @@ class tx_caretaker_LocalizationHelper
                     $language_key = $GLOBALS['BE_USER']->uc['lang'];
                     $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Lang\LanguageService');
                     $LANG->init($language_key);
-                    $result = $LANG->getLLL(
-                        $locallang_key,
-                        \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(
-                            \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
-                                $locallang_file
-                            ),
+                    if (version_compare(TYPO3_version, '8.0', '<')) {
+                        $localLanguage = \TYPO3\CMS\Core\Utility\GeneralUtility::readLLfile(
+                            \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
                             $LANG->lang,
                             $LANG->charSet
-                        )
+                        );
+                    } else {
+                        /** @var $languageFactory \TYPO3\CMS\Core\Localization\LocalizationFactory */
+                        $languageFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LocalizationFactory::class);
+                        $localLanguage = $languageFactory->getParsedData(
+                            \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($locallang_file),
+                            $LANG->lang,
+                            $LANG->charSet
+                        );
+                    }
+                    $result = $LANG->getLLL(
+                        $locallang_key,
+                        $localLanguage
                     );
                     break;
 
