@@ -180,7 +180,6 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
         ),
         'public_key' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.public_key',
-            'displayCond' => 'EXT:caretaker_instance:LOADED:true',
             'config' => array(
                 'type' => 'input',
                 'eval' => 'trim',
