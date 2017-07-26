@@ -92,7 +92,7 @@ if (TYPO3_MODE == 'BE') {
 
 // Register Backend Modules
 if (TYPO3_MODE == 'BE') {
-    if (version_compare(TYPO3_version, '8.7', '<')) {
+    if (version_compare(TYPO3_version, '8.0', '<')) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', '', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_nav/');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', 'txcaretakerOverview', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_overview/');
     } else {
