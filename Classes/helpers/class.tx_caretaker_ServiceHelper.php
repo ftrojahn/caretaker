@@ -44,6 +44,10 @@
  * @author Tobias Liebig <liebig@networkteam.com>
  *
  */
+
+use \TYPO3\CMS\Core\Database\ConnectionPool;
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class tx_caretaker_ServiceHelper
 {
     /**
@@ -171,7 +175,15 @@ class tx_caretaker_ServiceHelper
         $dsArray = array(
             'default' => self::$tcaTestConfigDs['default'],
         );
-        $tests = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_caretaker_test', 'deleted=0');
+        if (version_compare(TYPO3_version, '8.0', '<')) {
+            $tests = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_caretaker_test', 'deleted=0');
+        } else {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_caretaker_test');
+            $tests = $queryBuilder->select('*')
+                ->from('tx_caretaker_test')
+                ->where($queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter('0')))
+                ->execute();
+        }
         if (!empty($tests)) {
             foreach ($tests as $testRecord) {
                 if (array_key_exists($testRecord['test_service'], self::$tcaTestConfigDs)) {
