@@ -26,14 +26,14 @@ $GLOBALS['TCA']['tx_caretaker_testgroup'] = array(
     ),
     'columns' => array(
         'hidden' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
             ),
         ),
         'starttime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -44,7 +44,7 @@ $GLOBALS['TCA']['tx_caretaker_testgroup'] = array(
             ),
         ),
         'endtime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -59,7 +59,7 @@ $GLOBALS['TCA']['tx_caretaker_testgroup'] = array(
             ),
         ),
         'fe_group' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.fe_group',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -111,6 +111,7 @@ $GLOBALS['TCA']['tx_caretaker_testgroup'] = array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_testgroup.instances',
             'config' => array(
                 'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_caretaker_instance',
                 'MM' => 'tx_caretaker_instance_testgroup_mm',
                 'MM_opposite_field' => 'group',
@@ -150,11 +151,14 @@ $GLOBALS['TCA']['tx_caretaker_testgroup'] = array(
     ),
     'types' => array(
         '0' => array(
-            'showitem' => 'hidden;;1;;1-1-1, title, parent_group;;;;3-3-3,
-		--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_testgroup.tab.description,description,
-		--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_testgroup.tab.relations,tests;;;;4-4-4,
-		--palette--;Instances;instances
-		',
+            'showitem' => '
+                hidden, 
+                --palette--;;1, 
+                title, 
+                parent_group,
+                --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_testgroup.tab.description,description,
+		        --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_testgroup.tab.relations,tests
+		    ',
         ),
     ),
     'palettes' => array(

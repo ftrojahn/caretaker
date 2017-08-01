@@ -41,6 +41,6 @@ $GLOBALS['TCA']['tx_caretaker_node_address_mm'] = array(
         ),
     ),
     'types' => array(
-        '0' => array('showitem' => 'uid_address;;1;;1-1-1, role'),
+        '0' => array('showitem' => 'uid_address, --palette--;;1, role'),
     ),
 );

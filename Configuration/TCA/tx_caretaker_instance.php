@@ -35,14 +35,14 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
     ),
     'columns' => array(
         'hidden' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
             ),
         ),
         'starttime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -53,7 +53,7 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
             ),
         ),
         'endtime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -68,7 +68,7 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
             ),
         ),
         'fe_group' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.fe_group',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => array(
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
@@ -251,12 +251,18 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
     ),
     'types' => array(
         '0' => array(
-            'showitem' => 'title;;;;2-2-2, instancegroup, url;;;;3-3-3, host, public_key,' .
-                '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.description, description, ' .
-                '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.relations, groups, tests, ' .
-                '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.contacts, contacts, ' .
+            'showitem' => '
+                title, 
+                instancegroup, 
+                url, 
+                host, 
+                public_key, 
+                --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.description, description, 
+                --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.relations, groups, tests, 
+                --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.contacts, contacts, ' .
                 ($advancedNotificationsEnabled ? '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.notifications, notification_strategies, ' : '') .
-                '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.testconfigurations, ' . ($enableNewConfigurationOverrides ? 'configuration_overrides, ' : 'testconfigurations,') .
+                '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.testconfigurations, ' .
+                ($enableNewConfigurationOverrides ? 'configuration_overrides, ' : 'testconfigurations,') .
                 '--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.tab.access, hidden, starttime, endtime, fe_group',
         ),
     ),

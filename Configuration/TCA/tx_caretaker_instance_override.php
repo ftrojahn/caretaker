@@ -77,6 +77,7 @@ $GLOBALS['TCA']['tx_caretaker_instance_override'] = array(
                     array('CURLOPT_USERPWD (user:password)', 'CURLOPT_USERPWD'),
                     array('CURLOPT_HTTPAUTH', 'CURLOPT_HTTPAUTH'),
                 ),
+                'renderType' => 'selectSingle',
             ),
             'onChange' => 'reload',
         ),

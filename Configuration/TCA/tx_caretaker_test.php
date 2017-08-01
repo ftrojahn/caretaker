@@ -24,14 +24,14 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
     ),
     'columns' => array(
         'hidden' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.hidden',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => array(
                 'type' => 'check',
                 'default' => '0',
             ),
         ),
         'starttime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.starttime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -41,7 +41,7 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
             ),
         ),
         'endtime' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.endtime',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
@@ -55,16 +55,17 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
             ),
         ),
         'fe_group' => array(
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.fe_group',
+            'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.fe_group',
             'config' => array(
                 'type' => 'select',
                 'items' => array(
                     array('', 0),
-                    array('LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1),
-                    array('LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2),
-                    array('LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--'),
+                    array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hide_at_login', -1),
+                    array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.any_login', -2),
+                    array('LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.usergroups', '--div--'),
                 ),
                 'foreign_table' => 'fe_groups',
+                'renderType' => 'selectSingle',
             ),
         ),
         'title' => array(
@@ -191,12 +192,15 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => array_merge(
-                    array(0 => array('LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.test_service.select_service', '')),
+                    array(
+                        0 => array('LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.test_service.select_service', '')
+                    ),
                     \tx_caretaker_ServiceHelper::getTcaTestServiceItems()
                 ),
                 'size' => 1,
                 'maxitems' => 1,
             ),
+            'onChange' => 'reload',
         ),
         'test_conf' => array(
             'displayCond' => 'FIELD:test_service:REQ:true',
@@ -273,10 +277,22 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
     ),
     'types' => array(
         '0' => array(
-            'showitem' => 'test_service;;;;1-1-1, hidden;;1;;2-2-2, title,test_interval;;2,test_retry, test_due, test_conf;;;;4-4-4,
-					--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.tab.description, description,
-					--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.tab.notifications, roles,
-					--palette--;Groups and Instances; 3',
+            'showitem' => '
+                test_service, 
+                hidden,
+                --palette--;;1,
+                title,
+                test_interval, 
+                --palette--;;2,
+                test_retry, 
+                test_due,
+                test_conf,
+                --div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.tab.description, 
+                    description,
+				--div--;LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.tab.notifications, 
+				    roles,
+                    --palette--;Groups and Instances;3
+            ',
         ),
     ),
     'palettes' => array(
