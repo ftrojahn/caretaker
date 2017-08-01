@@ -10,8 +10,6 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
         'default_sortby' => 'ORDER BY title',
         'delete' => 'deleted',
         'rootLevel' => -1,
-        'requestUpdate' => 'test_service',
-        'dividers2tabs' => 1,
         'enablecolumns' => array(
             'disabled' => 'hidden',
             'starttime' => 'starttime',
@@ -40,7 +38,6 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
                 'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
-                'checkbox' => '0',
             ),
         ),
         'endtime' => array(
@@ -50,7 +47,6 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
                 'size' => '8',
                 'max' => '20',
                 'eval' => 'date',
-                'checkbox' => '0',
                 'default' => '0',
                 'range' => array(
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
