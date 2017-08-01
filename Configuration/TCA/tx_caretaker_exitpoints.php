@@ -18,7 +18,6 @@ if ($advancedNotificationsEnabled) {
                 'disabled' => 'hidden',
             ),
             'iconfile' => 'EXT:caretaker/res/icons/exitpoint.png',
-            'requestUpdate' => 'service',
             'searchFields' => 'name, description',
         ),
         'interface' => array(
@@ -72,6 +71,7 @@ if ($advancedNotificationsEnabled) {
                     'size' => 1,
                     'maxitems' => 1,
                 ),
+                'onChange' => 'reload',
             ),
             'config' => array(
                 'displayCond' => 'FIELD:service:REQ:true',

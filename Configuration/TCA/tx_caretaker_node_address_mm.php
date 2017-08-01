@@ -18,23 +18,14 @@ $GLOBALS['TCA']['tx_caretaker_node_address_mm'] = array(
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address') ? 'tt_address' : 'tx_caretaker_contactaddress',
-                'wizards' => array(
-                    '_PADDING' => 1,
-                    '_VERTICAL' => 1,
-                    'edit' => array(
-                        'type' => 'script',
+                'fieldControl' => [
+                    'addRecord' => [
+                        'pid' => '0',
+                        'table' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address') ? 'tt_address' : 'tx_caretaker_contactaddress',
                         'title' => 'Create new address',
-                        'icon' => 'add.gif',
-                        'params' => array(
-                            'table' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_address') ? 'tt_address' : 'tx_caretaker_contactaddress',
-                            'pid' => '0',
-                            'setValue' => 'prepend',
-                        ),
-                        'module' => array(
-                            'name' => 'wizard_add',
-                        ),
-                    ),
-                ),
+                        'setValue' => 'prepend',
+                    ],
+                ],
             ),
         ),
         'role' => array(

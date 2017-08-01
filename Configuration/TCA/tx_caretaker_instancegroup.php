@@ -41,10 +41,10 @@ $GLOBALS['TCA']['tx_caretaker_instancegroup'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
+                'renderType' => 'inputDateTime',
             ),
         ),
         'endtime' => array(
@@ -52,7 +52,6 @@ $GLOBALS['TCA']['tx_caretaker_instancegroup'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
@@ -60,6 +59,7 @@ $GLOBALS['TCA']['tx_caretaker_instancegroup'] = array(
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
                     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
                 ),
+                'renderType' => 'inputDateTime',
             ),
         ),
         'fe_group' => array(
@@ -93,8 +93,8 @@ $GLOBALS['TCA']['tx_caretaker_instancegroup'] = array(
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
+                'enableRichtext' => true,
             ),
-            'defaultExtras' => 'richtext',
         ),
         'parent_group' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instancegroup.parent_group',

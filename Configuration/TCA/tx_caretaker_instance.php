@@ -46,10 +46,10 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
                 'checkbox' => '0',
+                'renderType' => 'inputDateTime',
             ),
         ),
         'endtime' => array(
@@ -57,7 +57,6 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'checkbox' => '0',
                 'default' => '0',
@@ -65,6 +64,7 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
                     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
                 ),
+                'renderType' => 'inputDateTime',
             ),
         ),
         'fe_group' => array(
@@ -98,8 +98,8 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
+                'enableRichtext' => true,
             ),
-            'defaultExtras' => 'richtext',
         ),
         'url' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance.url',
@@ -149,33 +149,18 @@ $GLOBALS['TCA']['tx_caretaker_instance'] = array(
                 'autoSizeMax' => 10,
                 'minitems' => 0,
                 'maxitems' => 10000,
-                'wizards' => array(
-                    '_PADDING' => 1,
-                    '_VERTICAL' => 1,
-                    'edit' => array(
-                        'type' => 'popup',
-                        'title' => 'Edit Test',
-                        'module' => array(
-                            'name' => 'wizard_edit',
-                        ),
-                        'icon' => 'edit2.gif',
-                        'popup_onlyOpenIfSelected' => 1,
-                        'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
-                    ),
-                    'add' => array(
-                        'type' => 'script',
+                'fieldControl' => [
+                    'addRecord' => [
+                        'pid' => '###CURRENT_PID###',
+                        'table' => 'tx_caretaker_test',
                         'title' => 'Create new Test',
-                        'icon' => 'add.gif',
-                        'params' => array(
-                            'table' => 'tx_caretaker_test',
-                            'pid' => '###CURRENT_PID###',
-                            'setValue' => 'prepend',
-                        ),
-                        'module' => array(
-                            'name' => 'wizard_add',
-                        ),
-                    ),
-                ),
+                        'setValue' => 'prepend',
+                    ],
+                    'editPopup' => [
+                        'title' => 'Edit Test',
+                        'windowOpenParameters' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+                    ],
+                ],
             ),
         ),
         'public_key' => array(

@@ -35,9 +35,9 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
+                'renderType' => 'inputDateTime',
             ),
         ),
         'endtime' => array(
@@ -45,13 +45,13 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '8',
-                'max' => '20',
                 'eval' => 'date',
                 'default' => '0',
                 'range' => array(
                     'upper' => mktime(0, 0, 0, 12, 31, 2020),
                     'lower' => mktime(0, 0, 0, date('m') - 1, date('d'), date('Y')),
                 ),
+                'renderType' => 'inputDateTime',
             ),
         ),
         'fe_group' => array(
@@ -81,8 +81,8 @@ $GLOBALS['TCA']['tx_caretaker_test'] = array(
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
+                'enableRichtext' => true,
             ),
-            'defaultExtras' => 'richtext',
         ),
         'test_interval' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_test.test_interval',

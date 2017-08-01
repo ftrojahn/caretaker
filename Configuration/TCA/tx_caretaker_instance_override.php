@@ -8,7 +8,6 @@ $GLOBALS['TCA']['tx_caretaker_instance_override'] = array(
         'label_userFunc' => 'Caretaker\\Caretaker\\UserFunc\\LabelUserFunc->getLabel',
         'type' => 'type',
         'hideTable' => true,
-        'requestUpdate' => 'test,curl_option',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -47,6 +46,7 @@ $GLOBALS['TCA']['tx_caretaker_instance_override'] = array(
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_caretaker_test',
             ),
+            'onChange' => 'reload',
         ),
         'test_hidden' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance_override.test_hidden',
@@ -78,6 +78,7 @@ $GLOBALS['TCA']['tx_caretaker_instance_override'] = array(
                     array('CURLOPT_HTTPAUTH', 'CURLOPT_HTTPAUTH'),
                 ),
             ),
+            'onChange' => 'reload',
         ),
         'curl_value_int' => array(
             'label' => 'LLL:EXT:caretaker/locallang_db.xml:tx_caretaker_instance_override.curl_value',
