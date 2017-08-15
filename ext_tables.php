@@ -89,6 +89,7 @@ if (TYPO3_MODE == 'BE') {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', '', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_nav/');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule('txcaretakerNav', 'txcaretakerOverview', '', \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($_EXTKEY) . 'mod_overview/');
     } else {
+        //\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addNavigationComponent('txcaretakerNav', 'txcaretakerNav');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
             'txcaretakerNav', '', '', '',
             array(
@@ -106,6 +107,7 @@ if (TYPO3_MODE == 'BE') {
                 'icon' => 'EXT:caretaker/mod_overview/moduleicon.svg',
                 'labels' => 'LLL:EXT:caretaker/mod_overview/locallang_mod.xml',
                 'routeTarget' => \Caretaker\Caretaker\Module\Overview::class . '::mainAction',
+                'navigationFrameModule' => 'txcaretakerNav',
             )
         );
     }

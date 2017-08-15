@@ -1,11 +1,10 @@
 <?php
-
 namespace Caretaker\Caretaker\Module;
 
-use \TYPO3\CMS\Backend\Module\BaseScriptClass;
+use TYPO3\CMS\Backend\Module\BaseScriptClass;
 
-use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Overview extends BaseScriptClass
 {
@@ -152,8 +151,6 @@ class Overview extends BaseScriptClass
 
             $this->content .= $this->doc->startPage($LANG->getLL('title'));
             $this->content .= $this->doc->header($LANG->getLL('title'));
-            $this->content .= $this->doc->spacer(5);
-            $this->content .= $this->doc->spacer(10);
         }
         $this->content .= $this->doc->endPage();
         $response->getBody()->write($this->content);

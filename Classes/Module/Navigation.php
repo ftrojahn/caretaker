@@ -1,11 +1,14 @@
 <?php
-
 namespace Caretaker\Caretaker\Module;
 
-use \TYPO3\CMS\Backend\Module\BaseScriptClass;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
-use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Backend\Module\BaseScriptClass;
+use TYPO3\CMS\Backend\Template\DocumentTemplate;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class Navigation extends BaseScriptClass
 {
@@ -16,24 +19,24 @@ class Navigation extends BaseScriptClass
     public $instance_repository;
 
     /**
-     * @var \TYPO3\CMS\Core\Page\PageRenderer
+     * @var PageRenderer
      */
     public $pageRenderer;
 
-    public function mainAction(
-        \Psr\Http\Message\ServerRequestInterface $request,
-        \Psr\Http\Message\ResponseInterface $response
-    ) {
-        global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
+    public function __construct()
+    {
+        $this->getLanguageService()->includeLLFile('EXT:caretaker/mod_nav/locallang.xml');
+    }
 
+    public function mainAction(ServerRequestInterface $request, ResponseInterface $response)
+    {
         $PATH_TYPO3 = GeneralUtility::getIndpEnv('TYPO3_SITE_URL') . 'typo3/';
 
-        if ($BE_USER->user['admin']) {
+        if ($this->getBackendUser()->user['admin']) {
             // Draw the header.
-            $this->doc = GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
-            $this->doc->backPath = $BACK_PATH;
-
-            $this->pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+            $this->doc = GeneralUtility::makeInstance(DocumentTemplate::class);
+            $this->doc->backPath = $GLOBALS['$BACK_PATH'];
+            $this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 
             // Include Ext JS
             $this->pageRenderer->loadExtJS(true, true);
@@ -48,7 +51,8 @@ class Navigation extends BaseScriptClass
             $confArray = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['caretaker']);
             $storagePid = (int)$confArray['storagePid'];
 
-            $this->pageRenderer->addJsInlineCode('Caretaker_Nodetree',
+            $this->pageRenderer->addJsInlineCode(
+                'Caretaker_Nodetree',
                 '
 			Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 			Ext.ns("tx.caretaker");
@@ -71,20 +75,19 @@ class Navigation extends BaseScriptClass
 					tx_caretaker_tree.reloadTreePartial( id );
 				}
 			});
-			');
+			'
+            );
 
-            $this->content .= $this->doc->startPage($LANG->getLL('title'));
+            $this->content .= $this->doc->startPage($this->getLanguageService()->getLL('title'));
             $this->doc->form = '';
         } else {
             // If no access or if not admin
 
             $this->doc = GeneralUtility::makeInstance('TYPO3\CMS\Backend\Template\MediumDocumentTemplate');
-            $this->doc->backPath = $BACK_PATH;
+            $this->doc->backPath = $GLOBALS['$BACK_PATH'];
 
-            $this->content .= $this->doc->startPage($LANG->getLL('title'));
-            $this->content .= $this->doc->header($LANG->getLL('title'));
-            $this->content .= $this->doc->spacer(5);
-            $this->content .= $this->doc->spacer(10);
+            $this->content .= $this->doc->startPage($this->getLanguageService()->getLL('title'));
+            $this->content .= $this->doc->header($this->getLanguageService()->getLL('title'));
         }
 
         $this->content .= $this->doc->endPage();
