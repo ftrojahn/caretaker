@@ -124,9 +124,9 @@ class tx_caretaker_MultipleTestResultRangeChartRenderer extends tx_caretaker_Cha
                 $lastY = $newY;
             }
 
-            $bgPoints[] = intval($this->transformX($testResultRange->getLast()->getTimestamp()));
+            $bgPoints[] = intval($this->transformX(($testResultRange->getLast() ? $testResultRange->getLast()->getTimestamp() : 0)));
             $bgPoints[] = intval($this->transformY(0));
-            $bgPoints[] = intval($this->transformX($testResultRange->getFirst()->getTimestamp()));
+            $bgPoints[] = intval($this->transformX(($testResultRange->getFirst() ? $testResultRange->getFirst()->getTimestamp() : 0)));
             $bgPoints[] = intval($this->transformY(0));
 
             // draw filled chart background
