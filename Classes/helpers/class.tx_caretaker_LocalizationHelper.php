@@ -70,7 +70,7 @@ class tx_caretaker_LocalizationHelper
                     // FE
                     if ($GLOBALS['TSFE']) {
                         $lcObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-                        $result = $lcObj->TEXT(array('data' => $locallangString));
+                        $result = $lcObj->cObjGetSingle('TEXT', array('data' => $locallangString));
                     } // eID
                     else {
                         /** @var \TYPO3\CMS\Lang\LanguageService $LANG */
