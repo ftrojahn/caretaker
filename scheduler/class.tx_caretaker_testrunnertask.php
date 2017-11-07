@@ -34,6 +34,8 @@
  * $Id$
  */
 
+use TYPO3\CMS\Core\Locking\LockFactory;
+
 /**
  * Sceduler Task to update the status of a given caretakerNodeId.
  *
@@ -79,13 +81,14 @@ class tx_caretaker_TestrunnerTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask
         }
 
         if ($GLOBALS['TYPO3_CONF_VARS']['SYS']['lockingMode'] != 'disable') {
-            $lockObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Locking\Locker', 'tx_caretaker_update_' . $node->getCaretakerNodeId(), $GLOBALS['TYPO3_CONF_VARS']['SYS']['lockingMode']);
+            $lockObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(LockFactory::class);
+            $lock = $lockObj->createLocker('tx_caretaker_update_' . $node->getCaretakerNodeId());
             // no output during scheduler runs
             tx_caretaker_ServiceHelper::unregisterCaretakerNotificationService('CliNotificationService');
 
-            if ($lockObj->acquire()) {
+            if ($lock->acquire()) {
                 $node->updateTestResult();
-                $lockObj->release();
+                $lock->release();
             } else {
                 return true;
             }

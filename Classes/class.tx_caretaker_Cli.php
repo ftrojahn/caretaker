@@ -34,6 +34,7 @@
  * $Id$
  */
 
+use TYPO3\CMS\Core\Locking\LockFactory;
 /**
  * The caretaker cli script.
  *
@@ -111,8 +112,8 @@ class tx_caretaker_Cli extends \TYPO3\CMS\Core\Controller\CommandLineController
                 if ($task == 'update' || $task == 'ack' || $task == 'due') {
                     try {
                         $lockObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(LockFactory::class);
-                        $lockObj->createLocker('tx_caretaker_update_' . $node->getCaretakerNodeId());
-                        $lockIsAquired = $lockObj->acquire();
+                        $lock = $lockObj->createLocker('tx_caretaker_update_' . $node->getCaretakerNodeId());
+                        $lockIsAquired = $lock->acquire();
                     } catch (Exception $e) {
                         $this->cli_echo('lock ' . 'tx_caretaker_update_' . $node->getCaretakerNodeId() . ' could not be aquired!' . chr(10) . $e->getMessage());
                         exit;
@@ -126,7 +127,7 @@ class tx_caretaker_Cli extends \TYPO3\CMS\Core\Controller\CommandLineController
                         } elseif ($task == 'due' && is_a($node, 'tx_caretaker_TestNode')) {
                             $result = $node->setModeDue();
                         }
-                        $lockObj->release();
+                        $lock->release();
                     } else {
                         $result = false;
                         $this->cli_echo('node ' . $node->getCaretakerNodeId() . ' is locked because of other running update processes!' . chr(10));
