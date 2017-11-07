@@ -110,7 +110,8 @@ class tx_caretaker_Cli extends \TYPO3\CMS\Core\Controller\CommandLineController
 
                 if ($task == 'update' || $task == 'ack' || $task == 'due') {
                     try {
-                        $lockObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Locking\Locker', 'tx_caretaker_update_' . $node->getCaretakerNodeId(), $GLOBALS['TYPO3_CONF_VARS']['SYS']['lockingMode']);
+                        $lockObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(LockFactory::class);
+                        $lockObj->createLocker('tx_caretaker_update_' . $node->getCaretakerNodeId());
                         $lockIsAquired = $lockObj->acquire();
                     } catch (Exception $e) {
                         $this->cli_echo('lock ' . 'tx_caretaker_update_' . $node->getCaretakerNodeId() . ' could not be aquired!' . chr(10) . $e->getMessage());
